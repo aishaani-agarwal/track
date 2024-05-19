@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import TipsButton from "../components/TipsButton";
 import Rules from "../components/Rules";
 
+
 export default function Home() {
   const [items, setItems] = useState([]);
   const [itemName, setItemName] = useState("");

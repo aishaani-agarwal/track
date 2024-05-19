@@ -6,6 +6,9 @@ const nextConfig = {
   // next.config.js
   
   
+  module.exports = {
+    distDir: 'out',
+  };
   
   
   // export default nextConfig;
