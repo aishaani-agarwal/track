@@ -153,7 +153,6 @@
 
 
 
-
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import TipsButton from "../components/TipsButton";
@@ -215,6 +214,7 @@ export default function Home() {
     <>
       <Head>
         <title>TrackHonest</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <style jsx global>{`
         body {
@@ -228,7 +228,7 @@ export default function Home() {
           min-height: 100vh;
         }
         .container {
-          max-width: 400px;
+          max-width: 90%; /* Adjust width as per your design */
           width: 100%;
           padding: 20px;
           box-sizing: border-box;
@@ -237,7 +237,8 @@ export default function Home() {
         }
         .input-container {
           display: flex;
-          justify-content: space-between;
+          flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+          justify-content: space-around;
           align-items: center;
           margin-bottom: 10px;
         }
@@ -247,9 +248,11 @@ export default function Home() {
           font-size: 1rem;
           border-radius: 5px;
           border: 1px solid #ccc;
-          margin-right: 10px;
+          margin: 5px;
         }
         .input-container button {
+          flex-basis: 100%; /* Ensure button spans full width */
+          max-width: 200px; /* Adjust width as needed */
           padding: 10px 20px;
           font-size: 1rem;
           background-color: #bbf7d0;
@@ -257,9 +260,13 @@ export default function Home() {
           border: none;
           border-radius: 5px;
           cursor: pointer;
+          margin: 5px;
         }
         .item-list {
           margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
         .item {
           display: flex;
