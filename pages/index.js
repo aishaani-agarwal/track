@@ -1,9 +1,7 @@
-
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import TipsButton from "../components/TipsButton";
 import Rules from "../components/Rules";
-
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -42,9 +40,9 @@ export default function Home() {
     }
   };
 
-  const calculateTotalQuantity = () => {
+  const calculateTotalQuantity = useCallback(() => {
     return items.reduce((total, item) => total + item.quantity, 0);
-  };
+  }, [items]);
 
   useEffect(() => {
     const totalQuantity = calculateTotalQuantity();
@@ -55,7 +53,8 @@ export default function Home() {
         alert("You got this, oh and by the way vegetables don't count because they are good for you!");
       }, 0);
     }
-  }, [count, items]);
+  }, [count, items, calculateTotalQuantity]);
+
 
   return (
     <>
