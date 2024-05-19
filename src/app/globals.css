@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -31,3 +33,276 @@ body {
     text-wrap: balance;
   }
 }
+
+.hover-effect {
+  transition: transform 0.2s ease-in-out;
+}
+
+.hover-effect:hover {
+  transform: translateY(-2px);
+}
+
+
+.rotate-container {
+  width: 400px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px; /* Perspective for 3D effect */
+}
+
+.rotate-container:hover .text-6xl {
+  animation: rotate 5s infinite linear; /* Rotate animation on hover */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg); /* Start rotation from 0 degrees */
+  }
+  to {
+    transform: rotateY(360deg); /* End rotation at 360 degrees */
+  }
+}
+
+/* styles/globals.css */
+body {
+  background-color: #212121; /* Dark grey or neutral 900 */
+  color: #FFFFFF; /* White text for contrast */
+}
+body {
+  background-color: #212121;
+  color: #FFFFFF;
+  margin: 0;
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+}
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.input-container input {
+  flex: 1;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+.input-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #bbf7d0;
+  color: #0c0a09;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.item-list {
+  margin-top: 20px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.item span {
+  padding-right: 10px;
+}
+.item button {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  background-color: #ff6b6b;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-family: 'Times New Roman', Times, serif;
+}
+.resist-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+.resist-container button {
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  background-color: #bbf7d0;
+  color: #0c0a09;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.resist-container p {
+  font-size: 1.5rem;
+  font-family: 'Times New Roman', Times, serif;
+  margin-left: 10px;
+}
+.exercised-button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #bbf7d0;
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  color: #0c0a09;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.exercised-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+  body {
+    background-color: #212121;
+    color: #FFFFFF;
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+  }
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .input-container input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+  .input-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #bbf7d0;
+    color: #0c0a09;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .item-list {
+    margin-top: 20px;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .item span {
+    padding-right: 10px;
+  }
+  .item button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    background-color: #ff6b6b;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .result {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  .resist-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+  }
+  .resist-container button {
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    background-color: #bbf7d0;
+    color: #0c0a09;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .resist-container p {
+    font-size: 1.5rem;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: 10px;
+  }
+  .exercised-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #bbf7d0;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    color: #0c0a09;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .exercised-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100vh) rotateZ(0deg);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(100vh) rotateZ(360deg);
+      opacity: 1;
+    }
+  }
+  
+  .confetti-piece {
+    position: absolute;
+    background-color: #fbc531;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: confetti-fall 3s ease-out infinite;
+  }
+  
