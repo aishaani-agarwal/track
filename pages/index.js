@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState, useEffect, useCallback } from "react";
 import TipsButton from "../components/TipsButton";
 import Rules from "../components/Rules";
+import Image from "next/image";
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -13,6 +14,45 @@ export default function Home() {
   const [showConfetti, setShowConfetti] = useState(false);
 
   const colors = ["yellow", "blue", "red", "green", "pink", "orange", "purple"];
+
+  const isSameDay = (dateString) => {
+    const storedDate = new Date(dateString);
+    const now = new Date();
+    return (
+      storedDate.getDate() === now.getDate() &&
+      storedDate.getMonth() === now.getMonth() &&
+      storedDate.getFullYear() === now.getFullYear()
+    );
+  };
+
+  const loadDataFromLocalStorage = () => {
+    const storedData = localStorage.getItem("trackHonestData");
+    const storedDate = localStorage.getItem("trackHonestDate");
+
+    if (storedData && storedDate && isSameDay(storedDate)) {
+      const data = JSON.parse(storedData);
+      setItems(data.items);
+      setCount(data.count);
+      setExercisedClicked(data.exercisedClicked);
+    } else {
+      localStorage.removeItem("trackHonestData");
+      localStorage.removeItem("trackHonestDate");
+    }
+  };
+
+  const saveDataToLocalStorage = (items, count, exercisedClicked) => {
+    const data = { items, count, exercisedClicked };
+    localStorage.setItem("trackHonestData", JSON.stringify(data));
+    localStorage.setItem("trackHonestDate", new Date().toISOString());
+  };
+
+  useEffect(() => {
+    loadDataFromLocalStorage();
+  }, []);
+
+  useEffect(() => {
+    saveDataToLocalStorage(items, count, exercisedClicked);
+  }, [items, count, exercisedClicked]);
 
   const handleAddItem = () => {
     if (itemName && itemQuantity > 0) {
@@ -33,11 +73,23 @@ export default function Home() {
 
   const handleExercisedButtonClick = () => {
     if (!exercisedClicked) {
-      setCount(count + 2); // Increment count by 2 when exercised button is clicked
-      setExercisedClicked(true); // Update exercisedClicked state to true
-      setShowConfetti(true); // Show confetti animation
-      setTimeout(() => setShowConfetti(false), 5000); // Hide confetti after 5 seconds
+      setCount(count + 2);
+      setExercisedClicked(true);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 5000);
     }
+  };
+
+  const handleReset = () => {
+    setItems([]);
+    setItemName("");
+    setItemQuantity(0);
+    setCount(0);
+    setFinalResult(0);
+    setExercisedClicked(false);
+    setShowConfetti(false);
+    localStorage.removeItem("trackHonestData");
+    localStorage.removeItem("trackHonestDate");
   };
 
   const calculateTotalQuantity = useCallback(() => {
@@ -54,7 +106,6 @@ export default function Home() {
       }, 0);
     }
   }, [count, items, calculateTotalQuantity]);
-
 
   return (
     <>
@@ -74,7 +125,7 @@ export default function Home() {
           min-height: 100vh;
         }
         .container {
-          max-width: 90%; /* Adjust width as per your design */
+          max-width: 90%;
           width: 100%;
           padding: 20px;
           box-sizing: border-box;
@@ -83,7 +134,7 @@ export default function Home() {
         }
         .input-container {
           display: flex;
-          flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+          flex-wrap: wrap;
           justify-content: space-around;
           align-items: center;
           margin-bottom: 10px;
@@ -97,8 +148,8 @@ export default function Home() {
           margin: 5px;
         }
         .input-container button {
-          flex-basis: 100%; /* Ensure button spans full width */
-          max-width: 200px; /* Adjust width as needed */
+          flex-basis: 100%;
+          max-width: 200px;
           padding: 10px 20px;
           font-size: 1rem;
           background-color: #bbf7d0;
@@ -157,13 +208,18 @@ export default function Home() {
           font-family: 'Times New Roman', Times, serif;
           margin-left: 10px;
         }
+        .exercised-button-container {
+          position: fixed;
+          bottom: 40px;
+          right: 30px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
         .exercised-button {
           padding: 10px 20px;
           font-size: 1.2rem;
           background-color: #bbf7d0;
-          position: fixed;
-          bottom: 40px;
-          right: 30px;
           color: #0c0a09;
           border: none;
           border-radius: 5px;
@@ -172,6 +228,16 @@ export default function Home() {
         .exercised-button:disabled {
           background-color: #ccc;
           cursor: not-allowed;
+        }
+        .reset-button {
+          margin-left: 10px;
+          padding: 10px 20px;
+          font-size: 1.2rem;
+          background-color: #ff6b6b;
+          color: #FFFFFF;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
         }
         .confetti {
           position: fixed;
@@ -213,7 +279,7 @@ export default function Home() {
         <div className="input-container">
           <input
             type="text"
-            placeholder="Item Name"
+            placeholder="What did you eat?"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
           />
@@ -230,18 +296,17 @@ export default function Home() {
         <div className="item-list">
           {items.map((item, index) => (
             <div key={index} className="item">
-              <span>{item.name}</span>
+              <span>{item.name}: </span>
               <span>{item.quantity}</span>
               <button onClick={() => handleDeleteItem(index)}>Delete</button>
             </div>
           ))}
         </div>
         <div className="result">
-          <p>Final score: {finalResult}</p>
+          <p>Steps Closer: {finalResult}</p>
         </div>
       </div>
 
-      {/* Confetti Animation */}
       {showConfetti && (
         <div className="confetti">
           {[...Array(100)].map((_, index) => (
@@ -259,13 +324,21 @@ export default function Home() {
         </div>
       )}
 
-      <button
-        className="exercised-button"
-        onClick={handleExercisedButtonClick}
-        disabled={exercisedClicked}
-      >
-        I exercised!
-      </button>
+      <div className="exercised-button-container">
+        <button
+          className="exercised-button"
+          onClick={handleExercisedButtonClick}
+          disabled={exercisedClicked}
+        >
+          I exercised!
+        </button>
+        <button
+          className="reset-button"
+          onClick={handleReset}
+        >
+          Reset
+        </button>
+      </div>
 
       <TipsButton />
       <Rules/>
