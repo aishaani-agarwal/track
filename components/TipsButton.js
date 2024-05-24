@@ -7,7 +7,7 @@ const TipsButton = () => {
   const tips = [
     'Drinks tons of water',
     'Count till 3 like its a dramatic movie',
-    'Suck it up cause you need to prove people wrong',
+    'Get over it cause you need to prove people wrong',
     
   ];
 
