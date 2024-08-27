@@ -1,3 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
+
+
+
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import TipsButton from "../components/TipsButton";
@@ -71,9 +75,9 @@ export default function Home() {
     localStorage.setItem("trackHonestDate", new Date().toISOString());
   };
 
-  useEffect(() => {
-    loadDataFromLocalStorage();
-  }, []);
+  // useEffect(() => {
+  //   loadDataFromLocalStorage();
+  // }, []);
 
   useEffect(() => {
     saveDataToLocalStorage(items, count, exercisedClicked);
@@ -167,7 +171,6 @@ export default function Home() {
     "Don't give up!",
     "Get over it!",
     "Walk away now!",
-    "Come on, dont screw it up now!",
     "Stop making excuses!",
     "Get back to work!",
     "Failure is not an option!",
@@ -193,6 +196,10 @@ export default function Home() {
 
     window.speechSynthesis.speak(utterance);
 };
+
+
+
+
 
   return (
     <>
@@ -524,3 +531,8 @@ export default function Home() {
     </>
   );
 }
+
+
+
+
+
