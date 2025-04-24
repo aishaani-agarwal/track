@@ -1,11 +1,29 @@
-// @ts-check
 /* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import TipsButton from "../components/TipsButton";
 import Rules from "../components/Rules";
 import NameOverlay from "components/NameOverlay.js";
 import React, { useEffect, useState } from "react";
-import { styled } from "styled-components";
+
+const pageContentStyles: React.CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100vh',
+};
+
+
+const nameDisplayStyles: React.CSSProperties = {
+  position: 'fixed',
+  bottom: '10px',
+  left: '10px',
+  background: 'transparent',
+  fontSize: '1.4rem',
+  padding: '5px 10px',
+  borderRadius: '5px',
+}
+
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -77,24 +95,6 @@ export default function Home() {
   //     </div>
   //   );
   // };
-
-  const pageContentStyles = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
-
-const nameDisplayStyles = styled.div`
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background: transparent;
-  font-size: 1.4rem;
-  padding: 5px 10px;
-  border-radius: 5px;
-`;
 
   // Function to save data to local storage
   const saveDataToLocalStorage = (items, count, exercisedClicked) => {
@@ -175,7 +175,7 @@ const nameDisplayStyles = styled.div`
   useEffect(() => {
     const totalQuantity = items.reduce(
       (total, item) => total + item.quantity,
-      0
+      0,
     );
     const result = count - totalQuantity;
     setFinalResult(result);
@@ -229,12 +229,8 @@ const nameDisplayStyles = styled.div`
       <div>
         {!name && <NameOverlay setName={setName} />}
         {name && (
-          <div 
-// @ts-ignore
-          style={pageContentStyles}>
-            <p 
-// @ts-ignore
-            style={nameDisplayStyles}>Hello, {name}!</p>
+          <div style={pageContentStyles}>
+            <p style={nameDisplayStyles}>Hello, {name}!</p>
 
             <style jsx global>{`
               body {
