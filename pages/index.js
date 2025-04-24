@@ -1,13 +1,11 @@
+// @ts-check
 /* eslint-disable react/no-unescaped-entities */
-
-
-
 import Head from "next/head";
-import { useState, useEffect } from "react";
 import TipsButton from "../components/TipsButton";
 import Rules from "../components/Rules";
-import NameOverlay from "../components/NameOverlay";
-import Image from "next/image";
+import NameOverlay from "components/NameOverlay.js";
+import React, { useEffect, useState } from "react";
+import { styled } from "styled-components";
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -23,50 +21,80 @@ export default function Home() {
 
   const colors = ["yellow", "blue", "red", "green", "pink", "orange", "purple"];
 
-  const isSameDay = (dateString) => {
-    const storedDate = new Date(dateString);
-    const now = new Date();
-    return (
-      storedDate.getDate() === now.getDate() &&
-      storedDate.getMonth() === now.getMonth() &&
-      storedDate.getFullYear() === now.getFullYear()
-    );
-  };
+  // const isSameDay = (dateString) => {
+  //   const storedDate = new Date(dateString);
+  //   const now = new Date();
+  //   return (
+  //     storedDate.getDate() === now.getDate() &&
+  //     storedDate.getMonth() === now.getMonth() &&
+  //     storedDate.getFullYear() === now.getFullYear()
+  //   );
+  // };
 
-  // Function to load data from local storage
-  const loadDataFromLocalStorage = () => {
-    const storedData = localStorage.getItem("trackHonestData");
-    const storedDate = localStorage.getItem("trackHonestDate");
+  // const MyComponent = () => {
+  //   const [data, setData] = useState(null);
+  //   const [steps, setSteps] = useState(0);
+  //   const [name, setName] = useState(null);
 
-    if (storedData && storedDate && isSameDay(storedDate)) {
-      const data = JSON.parse(storedData);
-      setItems(data.items);
-      setCount(data.count);
-      setExercisedClicked(data.exercisedClicked);
-    } else {
-      // Clear local storage if it's a new day
-      localStorage.removeItem("trackHonestData");
-      localStorage.removeItem("trackHonestDate");
-    }
-  };
+  //   const resetData = () => {
+  //     setData(0);
+  //     setSteps(0);
+  //     if (typeof window !== 'undefined') {
+  //       localStorage.removeItem("trackHonestData");
+  //       localStorage.removeItem("trackHonestDate");
+  //     }
+  //   };
 
-  const pageContentStyles = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-  };
+  //   const handleUghhhButtonClick = () => {
+  //     if (typeof window !== 'undefined' && window.speechSynthesis) {
+  //       const phrases = [
+  //         "You got this! Don’t back down!",
+  //         "Fight through it, you’re tougher than this!",
+  //         "No shortcuts! Stay strong!",
+  //         "Cravings don’t control you!",
+  //         "Victory is on the other side of discipline!"
+  //       ];
+  //       const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+  //       const utterance = new SpeechSynthesisUtterance(randomPhrase);
+  //       utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.name === 'Google US English Male');
+  //       utterance.pitch = 0.4;
+  //       utterance.rate = 1.3;
+  //       utterance.volume = 1.0;
+  //       window.speechSynthesis.speak(utterance);
+  //     }
+  //   };
 
-  const nameDisplayStyles = {
-    position: "fixed",
-    bottom: "10px",
-    left: "10px",
-    background: "transparent",
-    fontSize: "1.4rem",
-    padding: "5px 10px",
-    borderRadius: "5px",
-  };
+  //   if (!name) {
+  //     return <NameOverlay setName={setName} />;
+  //   }
+
+  //   return (
+  //     <div>
+  //       <h1>Hello, {name}</h1>
+  //       <button onClick={handleUghhhButtonClick}>Ughhh</button>
+  //       <button onClick={resetData}>Reset Data</button>
+  //       {/* Additional content can go here */}
+  //     </div>
+  //   );
+  // };
+
+  const pageContentStyles = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const nameDisplayStyles = styled.div`
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: transparent;
+  font-size: 1.4rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+`;
 
   // Function to save data to local storage
   const saveDataToLocalStorage = (items, count, exercisedClicked) => {
@@ -74,10 +102,6 @@ export default function Home() {
     localStorage.setItem("trackHonestData", JSON.stringify(data));
     localStorage.setItem("trackHonestDate", new Date().toISOString());
   };
-
-  // useEffect(() => {
-  //   loadDataFromLocalStorage();
-  // }, []);
 
   useEffect(() => {
     saveDataToLocalStorage(items, count, exercisedClicked);
@@ -108,7 +132,6 @@ export default function Home() {
       }
     }, 1000);
   };
-
 
   const handleAddItem = () => {
     if (itemName && itemQuantity > 0) {
@@ -156,7 +179,6 @@ export default function Home() {
     );
     const result = count - totalQuantity;
     setFinalResult(result);
-    
   }, [count, items]);
 
   useEffect(() => {
@@ -179,7 +201,6 @@ export default function Home() {
     "Toughen up!",
     "Keep going, no matter what!",
     "Push through the pain!",
-
   ];
 
   const handleUghhhButtonClick = () => {
@@ -187,7 +208,9 @@ export default function Home() {
     const utterance = new SpeechSynthesisUtterance(randomPhrase);
 
     // Find a suitable voice (adjust to your preference)
-    utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.name === 'Google US English Male'); // Adjust voice as needed
+    utterance.voice = window.speechSynthesis
+      .getVoices()
+      .find((voice) => voice.name === "Google US English Male"); // Adjust voice as needed
 
     // Adjust parameters for assertive and scolding tone
     utterance.pitch = 0.4; // Higher pitch for urgency
@@ -195,11 +218,7 @@ export default function Home() {
     utterance.volume = 1.0; // Full volume for emphasis
 
     window.speechSynthesis.speak(utterance);
-};
-
-
-
-
+  };
 
   return (
     <>
@@ -210,8 +229,12 @@ export default function Home() {
       <div>
         {!name && <NameOverlay setName={setName} />}
         {name && (
-          <div style={pageContentStyles}>
-            <p style={nameDisplayStyles}>Hello, {name}!</p>
+          <div 
+// @ts-ignore
+          style={pageContentStyles}>
+            <p 
+// @ts-ignore
+            style={nameDisplayStyles}>Hello, {name}!</p>
 
             <style jsx global>{`
               body {
@@ -418,21 +441,20 @@ export default function Home() {
                 color: white; /* Set text color to white */
               }
             `}</style>
-            
-              <h1
-                style={{
-                  fontSize: "3rem",
-                  fontFamily: "Times New Roman",
-                  position: "absolute",
-                  top: 3,
-                  left: 24,
-                }}
-              >
-                TRACK HONEST
-              </h1>
 
-              <div className="container">
+            <h1
+              style={{
+                fontSize: "3rem",
+                fontFamily: "Times New Roman",
+                position: "absolute",
+                top: 3,
+                left: 24,
+              }}
+            >
+              TRACK HONEST
+            </h1>
 
+            <div className="container">
               <div className="resist-container">
                 <button onClick={handleButtonClick}>Resisted!</button>
                 <p>{count} times</p>
@@ -482,7 +504,7 @@ export default function Home() {
               <div className="countdown-container">
                 <button onClick={startCountdown}>Play Breathe & Resist</button>
                 {countdown > 0 && <p>{countdown}</p>}
-                {countdown === 0 && <p>Time's up!</p>}
+                {countdown === 0 && <p>Time&apos;s up!</p>}
               </div>
 
               {/* UGHHH Button Section */}
@@ -531,8 +553,3 @@ export default function Home() {
     </>
   );
 }
-
-
-
-
-
