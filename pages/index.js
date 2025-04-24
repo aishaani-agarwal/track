@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
-import TipsButton from "../components/TipsButton";
-import Rules from "../components/Rules";
-import NameOverlay from "components/NameOverlay.js";
+import TipsButton from "../src/components/TipsButton";
+import Rules from "../src/components/Rules";
 import React, { useEffect, useState } from "react";
+import NameOverlay from '../src/components/NameOverlay'
 
-const pageContentStyles: React.CSSProperties = {
+const pageContentStyles = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -14,7 +14,7 @@ const pageContentStyles: React.CSSProperties = {
 };
 
 
-const nameDisplayStyles: React.CSSProperties = {
+const nameDisplayStyles = {
   position: 'fixed',
   bottom: '10px',
   left: '10px',
