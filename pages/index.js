@@ -39,64 +39,6 @@ export default function Home() {
 
   const colors = ["yellow", "blue", "red", "green", "pink", "orange", "purple"];
 
-  // const isSameDay = (dateString) => {
-  //   const storedDate = new Date(dateString);
-  //   const now = new Date();
-  //   return (
-  //     storedDate.getDate() === now.getDate() &&
-  //     storedDate.getMonth() === now.getMonth() &&
-  //     storedDate.getFullYear() === now.getFullYear()
-  //   );
-  // };
-
-  // const MyComponent = () => {
-  //   const [data, setData] = useState(null);
-  //   const [steps, setSteps] = useState(0);
-  //   const [name, setName] = useState(null);
-
-  //   const resetData = () => {
-  //     setData(0);
-  //     setSteps(0);
-  //     if (typeof window !== 'undefined') {
-  //       localStorage.removeItem("trackHonestData");
-  //       localStorage.removeItem("trackHonestDate");
-  //     }
-  //   };
-
-  //   const handleUghhhButtonClick = () => {
-  //     if (typeof window !== 'undefined' && window.speechSynthesis) {
-  //       const phrases = [
-  //         "You got this! Don’t back down!",
-  //         "Fight through it, you’re tougher than this!",
-  //         "No shortcuts! Stay strong!",
-  //         "Cravings don’t control you!",
-  //         "Victory is on the other side of discipline!"
-  //       ];
-  //       const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-  //       const utterance = new SpeechSynthesisUtterance(randomPhrase);
-  //       utterance.voice = window.speechSynthesis.getVoices().find(voice => voice.name === 'Google US English Male');
-  //       utterance.pitch = 0.4;
-  //       utterance.rate = 1.3;
-  //       utterance.volume = 1.0;
-  //       window.speechSynthesis.speak(utterance);
-  //     }
-  //   };
-
-  //   if (!name) {
-  //     return <NameOverlay setName={setName} />;
-  //   }
-
-  //   return (
-  //     <div>
-  //       <h1>Hello, {name}</h1>
-  //       <button onClick={handleUghhhButtonClick}>Ughhh</button>
-  //       <button onClick={resetData}>Reset Data</button>
-  //       {/* Additional content can go here */}
-  //     </div>
-  //   );
-  // };
-
-  // Function to save data to local storage
   const saveDataToLocalStorage = (items, count, exercisedClicked) => {
     const data = { items, count, exercisedClicked };
     localStorage.setItem("trackHonestData", JSON.stringify(data));
