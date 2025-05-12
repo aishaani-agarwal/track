@@ -142,7 +142,7 @@ export default function Home() {
     "/assets/audio/no_pain_no_gain.mp3",
     "/assets/audio/push_through_the_pain.mp3",
     "/assets/audio/toughen_up.mp3",
-    "/assets/audio/walk_away_now.mp3",;
+    "/assets/audio/walk_away_now.mp3",
     "/assets/audio/youve_got_this.mp3",
   ];
   
