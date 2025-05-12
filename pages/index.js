@@ -1,9 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
 import Head from "next/head";
 import TipsButton from "../src/components/TipsButton";
 import Rules from "../src/components/Rules";
 import React, { useEffect, useState } from "react";
 import NameOverlay from '../src/components/NameOverlay'
+import { random } from "lodash";
+
 
 const pageContentStyles = {
   display: 'flex',
@@ -101,6 +102,10 @@ export default function Home() {
     }
   };
 
+
+
+  
+
   const handleReset = () => {
     setItems([]);
     setItemName("");
@@ -131,37 +136,23 @@ export default function Home() {
   }, [waterCups, count]);
 
   const phrases = [
-    "You got this!",
-    "Don't give up!",
-    "Get over it!",
-    "Walk away now!",
-    "Stop making excuses!",
-    "Get back to work!",
-    "Failure is not an option!",
-    "You're better than this!",
-    "No pain, no gain!",
-    "Toughen up!",
-    "Keep going, no matter what!",
-    "Push through the pain!",
+    '/assets/audio/cmon.mp3',
+    "/assets/audio/dont_give_up.mp3",
+    "/assets/audio/get_over_it.mp3",
+    "/assets/audio/no_pain_no_gain.mp3",
+    "/assets/audio/push_through_the_pain.mp3",
+    "/assets/audio/toughen_up.mp3",
+    "/assets/audio/walk_away_now.mp3",;
+    "/assets/audio/youve_got_this.mp3",
   ];
-
+  
   const handleUghhhButtonClick = () => {
-    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-    const utterance = new SpeechSynthesisUtterance(randomPhrase);
-
-    // Find a suitable voice (adjust to your preference)
-    utterance.voice = window.speechSynthesis
-      .getVoices()
-      .find((voice) => voice.name === "Google US English Male"); // Adjust voice as needed
-
-    // Adjust parameters for assertive and scolding tone
-    utterance.pitch = 0.4; // Higher pitch for urgency
-    utterance.rate = 1.3; // Faster rate for assertiveness
-    utterance.volume = 1.0; // Full volume for emphasis
-
-    window.speechSynthesis.speak(utterance);
+    const randomAudio = phrases[Math.floor(Math.random() * phrases.length)];
+    const audio = new Audio(randomAudio); // assuming audio files are in /public
+    audio.play();
   };
-
+  
+  
   return (
     <>
       <Head>
