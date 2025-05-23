@@ -4,6 +4,10 @@ import Rules from "../src/components/Rules";
 import React, { useEffect, useState } from "react";
 import NameOverlay from '../src/components/NameOverlay'
 import { random } from "lodash";
+import GoalSetter from '../src/components/GoalSetter'
+import InfoTooltip from '../src/components/InfoTooltip'
+
+
 
 
 const pageContentStyles = {
@@ -37,6 +41,9 @@ export default function Home() {
   const [countdown, setCountdown] = useState(10);
   const [waterCups, setWaterCups] = useState(0);
   const [name, setName] = useState("");
+    const [goal, setGoal] = useState(null);
+
+  
 
   const colors = ["yellow", "blue", "red", "green", "pink", "orange", "purple"];
 
@@ -50,12 +57,7 @@ export default function Home() {
     saveDataToLocalStorage(items, count, exercisedClicked);
   }, [items, count, exercisedClicked]);
 
-  useEffect(() => {
-    const storedName = localStorage.getItem("name");
-    if (storedName) {
-      setName(storedName);
-    }
-  }, []);
+  
 
   useEffect(() => {
     if (name) {
@@ -399,8 +401,10 @@ export default function Home() {
             </h1>
 
             <div className="container">
-              <div className="resist-container">
+              <div className="resist-container" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <InfoTooltip text="Click this when you resist an unhealthy craving." />
                 <button onClick={handleButtonClick}>Resisted!</button>
+    
                 <p>{count} times</p>
               </div>
 
@@ -411,12 +415,14 @@ export default function Home() {
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
+                
                 <input
                   type="number"
                   placeholder="Quantity"
                   value={itemQuantity}
                   onChange={(e) => setItemQuantity(parseInt(e.target.value))}
                 />
+                <InfoTooltip text="Only add the unhealthy food item you ate along with its quantity." />
                 <button onClick={handleAddItem}>Add</button>
               </div>
               <div className="item-list">
@@ -430,30 +436,36 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="result">
+              {/* <div className="result">
                 <p>Steps Closer: {finalResult}</p>
-              </div>
+              </div> */}
 
               {/* Water Intake Section */}
-              <div className="water-container">
-                <button onClick={() => setWaterCups(waterCups + 1)}>
-                  Drank Water
+              <div className="water-container" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {/* <InfoTooltip text="Click this button everytime you drink a glass of water. When it reaches 8, the procss will restart." /> */}
+                <button onClick={() => setWaterCups(waterCups + 1)}>                  
+                  Drink Water
                 </button>
+            
                 <p>
                   {waterCups} {waterCups <= 1 ? "cup" : "cups"}{" "}
                 </p>
               </div>
 
               {/* Countdown Timer Section */}
-              <div className="countdown-container">
+              <div className="countdown-container" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <button onClick={startCountdown}>Play Breathe & Resist</button>
+                <InfoTooltip text="10 second timer which helps you breathe and get through the urge of eating something unhealthy" />
+  
                 {countdown > 0 && <p>{countdown}</p>}
                 {countdown === 0 && <p>Time&apos;s up!</p>}
               </div>
 
               {/* UGHHH Button Section */}
-              <div className="resist-container">
+              <div className="resist-container" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <button onClick={handleUghhhButtonClick}>UGHHHHHH</button>
+                <InfoTooltip text="Click to get a motivational (or scolding) message to keep you going." />
+
               </div>
             </div>
 
@@ -475,6 +487,13 @@ export default function Home() {
               </div>
             )}
 
+               <div>
+                <GoalSetter goal={goal} count={count} updateGoal={setGoal} />
+                {/* Your other page content and logic */}
+              </div> 
+
+            
+
             <div className="exercised-button-container">
               <button
                 className="exercised-button"
@@ -483,6 +502,8 @@ export default function Home() {
               >
                 I exercised!
               </button>
+              {/* <InfoTooltip text="Click this button when you complete an exercise session." /> */}
+
 
               <button className="reset-button" onClick={handleReset}>
                 Reset
