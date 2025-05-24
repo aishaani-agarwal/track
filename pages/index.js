@@ -1,6 +1,4 @@
 import Head from "next/head";
-import TipsButton from "../src/components/TipsButton";
-import Rules from "../src/components/Rules";
 import React, { useEffect, useState } from "react";
 import NameOverlay from '../src/components/NameOverlay'
 import { random } from "lodash";
@@ -38,7 +36,6 @@ export default function Home() {
   const [finalResult, setFinalResult] = useState(0);
   const [exercisedClicked, setExercisedClicked] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [countdown, setCountdown] = useState(10);
   const [waterCups, setWaterCups] = useState(0);
   const [name, setName] = useState("");
     const [goal, setGoal] = useState(null);
@@ -59,32 +56,15 @@ export default function Home() {
 
   
 
-  useEffect(() => {
-    if (name) {
-      localStorage.setItem("name", name);
-    }
-  }, [name]);
-
-  const startCountdown = () => {
-    let currentCount = 10;
-    const interval = setInterval(() => {
-      currentCount--;
-      if (currentCount >= 0) {
-        setCountdown(currentCount);
-      } else {
-        clearInterval(interval);
-        setCountdown(10); // Reset countdown after finishing
-      }
-    }, 1000);
-  };
-
+  
   const handleAddItem = () => {
-    if (itemName && itemQuantity > 0) {
-      setItems([...items, { name: itemName, quantity: itemQuantity }]);
-      setItemName("");
-      setItemQuantity(0);
-    }
-  };
+  if (itemName && itemQuantity > 0) {
+    setItems([...items, { name: itemName, quantity: itemQuantity }]);
+    setItemName("");
+    setItemQuantity(0);
+    setCount((prevCount) => prevCount - itemQuantity); // Deduct points
+  }
+};
 
   const handleDeleteItem = (index) => {
     const newItems = items.filter((_, i) => i !== index);
@@ -335,27 +315,8 @@ export default function Home() {
                 border-radius: 50%;
                 animation: confetti-fall 3s linear infinite;
               }
-              .countdown-container {
-                margin-top: 20px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-              }
-              .countdown-container button {
-                padding: 10px 20px;
-                font-size: 1.2rem;
-                background-color: #bbf7d0;
-                color: #0c0a09;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                margin-top: 10px;
-              }
-              .countdown-container p {
-                font-size: 2rem;
-                font-weight: bold;
-                margin-top: 10px;
-              }
+              
+              
               .water-container {
                 margin-top: 20px;
                 display: flex;
@@ -453,13 +414,7 @@ export default function Home() {
               </div>
 
               {/* Countdown Timer Section */}
-              <div className="countdown-container" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <button onClick={startCountdown}>Play Breathe & Resist</button>
-                <InfoTooltip text="10 second timer which helps you breathe and get through the urge of eating something unhealthy" />
-  
-                {countdown > 0 && <p>{countdown}</p>}
-                {countdown === 0 && <p>Time&apos;s up!</p>}
-              </div>
+              
 
               {/* UGHHH Button Section */}
               <div className="resist-container" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -510,8 +465,7 @@ export default function Home() {
               </button>
             </div>
 
-            <TipsButton />
-            <Rules />
+            
           </div>
         )}
       </div>
