@@ -4,7 +4,7 @@ import NameOverlay from "../src/components/NameOverlay";
 import { random } from "lodash";
 import GoalSetter from "../src/components/GoalSetter";
 import InfoTooltip from "../src/components/InfoTooltip";
-import About from "../src/components/about";
+import About from "../src/components/About";
 
 
 const pageContentStyles = {
