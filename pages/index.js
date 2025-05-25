@@ -1,32 +1,29 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import NameOverlay from '../src/components/NameOverlay'
+import NameOverlay from "../src/components/NameOverlay";
 import { random } from "lodash";
-import GoalSetter from '../src/components/GoalSetter'
-import InfoTooltip from '../src/components/InfoTooltip'
-
-
+import GoalSetter from "../src/components/GoalSetter";
+import InfoTooltip from "../src/components/InfoTooltip";
+import About from "../src/components/about";
 
 
 const pageContentStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100vh',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
 };
 
-
 const nameDisplayStyles = {
-  position: 'fixed',
-  bottom: '10px',
-  left: '10px',
-  background: 'transparent',
-  fontSize: '1.4rem',
-  padding: '5px 10px',
-  borderRadius: '5px',
-}
-
+  position: "fixed",
+  bottom: "10px",
+  left: "10px",
+  background: "transparent",
+  fontSize: "1.4rem",
+  padding: "5px 10px",
+  borderRadius: "5px",
+};
 
 export default function Home() {
   const [items, setItems] = useState([]);
@@ -38,9 +35,7 @@ export default function Home() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [waterCups, setWaterCups] = useState(0);
   const [name, setName] = useState("");
-    const [goal, setGoal] = useState(null);
-
-  
+  const [goal, setGoal] = useState(null);
 
   const colors = ["yellow", "blue", "red", "green", "pink", "orange", "purple"];
 
@@ -54,17 +49,14 @@ export default function Home() {
     saveDataToLocalStorage(items, count, exercisedClicked);
   }, [items, count, exercisedClicked]);
 
-  
-
-  
   const handleAddItem = () => {
-  if (itemName && itemQuantity > 0) {
-    setItems([...items, { name: itemName, quantity: itemQuantity }]);
-    setItemName("");
-    setItemQuantity(0);
-    setCount((prevCount) => prevCount - itemQuantity); // Deduct points
-  }
-};
+    if (itemName && itemQuantity > 0) {
+      setItems([...items, { name: itemName, quantity: itemQuantity }]);
+      setItemName("");
+      setItemQuantity(0);
+      setCount((prevCount) => prevCount - itemQuantity); // Deduct points
+    }
+  };
 
   const handleDeleteItem = (index) => {
     const newItems = items.filter((_, i) => i !== index);
@@ -83,10 +75,6 @@ export default function Home() {
       setTimeout(() => setShowConfetti(false), 5000);
     }
   };
-
-
-
-  
 
   const handleReset = () => {
     setItems([]);
@@ -131,7 +119,7 @@ export default function Home() {
     "Keep going, no matter what!",
     "Push through the pain!",
   ];
-  
+
   const handleUghhhButtonClick = () => {
     const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
     const utterance = new SpeechSynthesisUtterance(randomPhrase);
@@ -148,8 +136,7 @@ export default function Home() {
 
     window.speechSynthesis.speak(utterance);
   };
-  
-  
+
   return (
     <>
       <Head>
@@ -362,10 +349,13 @@ export default function Home() {
             </h1>
 
             <div className="container">
-              <div className="resist-container" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                className="resist-container"
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
                 <InfoTooltip text="Click this when you resist an unhealthy craving." />
                 <button onClick={handleButtonClick}>Resisted!</button>
-    
+
                 <p>{count} times</p>
               </div>
 
@@ -376,7 +366,7 @@ export default function Home() {
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
                 />
-                
+
                 <input
                   type="number"
                   placeholder="Quantity"
@@ -402,25 +392,29 @@ export default function Home() {
               </div> */}
 
               {/* Water Intake Section */}
-              <div className="water-container" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div
+                className="water-container"
+                style={{ display: "flex", alignItems: "center", gap: "8px" }}
+              >
                 {/* <InfoTooltip text="Click this button everytime you drink a glass of water. When it reaches 8, the procss will restart." /> */}
-                <button onClick={() => setWaterCups(waterCups + 1)}>                  
+                <button onClick={() => setWaterCups(waterCups + 1)}>
                   Drink Water
                 </button>
-            
+
                 <p>
                   {waterCups} {waterCups <= 1 ? "cup" : "cups"}{" "}
                 </p>
               </div>
 
               {/* Countdown Timer Section */}
-              
 
               {/* UGHHH Button Section */}
-              <div className="resist-container" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div
+                className="resist-container"
+                style={{ display: "flex", alignItems: "center", gap: "6px" }}
+              >
                 <button onClick={handleUghhhButtonClick}>UGHHHHHH</button>
                 <InfoTooltip text="Click to get a motivational (or scolding) message to keep you going." />
-
               </div>
             </div>
 
@@ -442,12 +436,10 @@ export default function Home() {
               </div>
             )}
 
-               <div>
-                <GoalSetter goal={goal} count={count} updateGoal={setGoal} />
-                {/* Your other page content and logic */}
-              </div> 
-
-            
+            <div>
+              <GoalSetter goal={goal} count={count} updateGoal={setGoal} />
+              {/* Your other page content and logic */}
+            </div>
 
             <div className="exercised-button-container">
               <button
@@ -459,13 +451,12 @@ export default function Home() {
               </button>
               {/* <InfoTooltip text="Click this button when you complete an exercise session." /> */}
 
-
               <button className="reset-button" onClick={handleReset}>
                 Reset
               </button>
             </div>
 
-            
+            <About />
           </div>
         )}
       </div>
